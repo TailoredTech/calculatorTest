@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 typedef enum
 {
-    CTButtonTypeInvalid = 0,
-    CTButtonTypeOperand = 1 << 0,
-    CTButtonTypeOpenBracket = 1 << 1,
-    CTButtonTypeCloseBracket = 1 << 2,
-    CTButtonTypeNumber = 1 << 3
+    CTStringTypeInvalid = 0,
+    CTStringTypeOperand = 1 << 0,
+    CTStringTypeOpenBracket = 1 << 1,
+    CTStringTypeCloseBracket = 1 << 2,
+    CTStringTypeNumber = 1 << 3
 }
-CTButtonType;
+CTStringType;
 
 @interface CTViewController : UIViewController
 
@@ -37,7 +37,7 @@ CTButtonType;
 -(NSString *) firstCharacter;
 -(NSString *) lastCharacter;
 -(NSString *) stringByRemovingFirstCharacter;
--(CTButtonType) getButtonType;
+-(CTStringType) getStringType;
 -(CGFloat) floatValue;
 -(BOOL) isNumber;
 -(BOOL) checkRegex:(NSString *) regex;
