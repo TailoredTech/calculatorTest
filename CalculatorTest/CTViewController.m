@@ -27,7 +27,89 @@
 }
 -(NSString *) solveQuestion:(NSString *) question
 {
-    return @"Invalid String";
+    NSMutableArray *numbersStack = [[NSMutableArray alloc] init];
+    NSMutableArray *operandStack = [[NSMutableArray alloc] init];
+
+    while([question length]>0)
+    {
+        NSString *nextChar = [self getFirstCharacter:question];
+        question = [self stringByRemovingFirstCharacter:question];
+        CTButtonType charType = [self getTypeForString:nextChar];
+        if(charType==CTButtonTypeNumber)
+        {
+            [numbersStack push:nextChar];
+        }
+        else if(charType==CTButtonTypeOpenBracket)
+        {
+            [operandStack push:nextChar];
+        }
+        else if(charType==CTButtonTypeCloseBracket)
+        {
+            if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack])
+            {
+                return @"Invalid String";
+            }
+            
+            if([operandStack peek]==nil)
+            {
+                return @"Invalid String";
+            }
+            [operandStack pop];
+        }
+        else
+        {
+            NSString *topOperand = [operandStack peek];
+            if(topOperand == nil)
+            {
+                [operandStack push:nextChar];
+            }
+            else if([self operandA:topOperand precedesOperandB:nextChar])
+            {
+                if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
+                {
+                    return @"Invalid String";
+                }
+                [operandStack push:nextChar];
+            }
+            else
+            {
+                [operandStack push:nextChar];
+            }
+        }
+    }
+    if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack])
+    {
+        return @"Invalid String";
+    }
+    return [numbersStack pop];
+}
+-(BOOL) solveTillNextBracketOrNilForNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
+{
+    while([operandStack peek]!=nil && [self getTypeForString:[operandStack peek]] != CTButtonTypeOpenBracket)
+    {
+        if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
+        {
+            return NO;
+        }
+    }
+    return YES;
+}
+-(BOOL) solveSingleOperationNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
+{
+    NSString *topOperand = [operandStack pop];
+    NSString *b = [numbersStack pop];
+    NSString *a = [numbersStack pop];
+    if(a==nil||b==nil)
+    {
+        return NO;
+    }
+    CTButtonType topType = [self getTypeForString:topOperand];
+    if(topType == CTButtonTypeOpenBracket)
+    {
+        return NO;
+    }
+    [numbersStack push:[self calculateForParamA:a paramB:b usingOperand:topOperand]];
+    return YES;
 }
 #pragma mark Utility Function
 //Returns whether operand A has a higher precedence than B
