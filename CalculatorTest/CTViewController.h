@@ -25,11 +25,20 @@ CTButtonType;
 -(IBAction) tappedOnButton:(UIButton *)sender;
 -(IBAction) tappedOnCalculate:(id)sender;
 -(IBAction) clear:(id)sender;
--(CTButtonType)getTypeForString:(NSString *) str;
 @end
 
-@interface NSMutableArray (Stack)
+@interface NSMutableArray (Calculator)
 -(void) push:(NSString *) obj;
 -(NSString *) pop;
 -(NSString *) peek;
+@end
+
+@interface NSString (Calculator)
+-(NSString *) firstCharacter;
+-(NSString *) lastCharacter;
+-(NSString *) stringByRemovingFirstCharacter;
+-(CTButtonType) getButtonType;
+-(CGFloat) floatValue;
+-(BOOL) isNumber;
+-(BOOL) checkRegex:(NSString *) regex;
 @end

@@ -32,18 +32,18 @@
 
     while([question length]>0)
     {
-        NSString *nextChar = [self getFirstCharacter:question];
-        question = [self stringByRemovingFirstCharacter:question];
-        CTButtonType charType = [self getTypeForString:nextChar];
-        if(charType==CTButtonTypeNumber)
+        NSString *nextChar = [question firstCharacter];// Remove first character from string
+        question = [question stringByRemovingFirstCharacter];
+        CTButtonType charType = [nextChar getButtonType];
+        if(charType==CTButtonTypeNumber)//If number add it to numbers stack
         {
             [numbersStack push:nextChar];
         }
-        else if(charType==CTButtonTypeOpenBracket)
+        else if(charType==CTButtonTypeOpenBracket)//If open bracket add it to the operand stack
         {
             [operandStack push:nextChar];
         }
-        else if(charType==CTButtonTypeCloseBracket)
+        else if(charType==CTButtonTypeCloseBracket)//If close bracket solve equation till last opened bracket
         {
             if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack])
             {
@@ -56,28 +56,20 @@
             }
             [operandStack pop];
         }
-        else
+        else//If operand
         {
             NSString *topOperand = [operandStack peek];
-            if(topOperand == nil)
-            {
-                [operandStack push:nextChar];
-            }
-            else if([self operandA:topOperand precedesOperandB:nextChar])
+            if(topOperand != nil && [self operandA:topOperand precedesOperandB:nextChar])//if the previous operand has a higher precedence solve a single calculation
             {
                 if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
                 {
                     return @"Invalid String";
                 }
-                [operandStack push:nextChar];
             }
-            else
-            {
-                [operandStack push:nextChar];
-            }
+            [operandStack push:nextChar];//add the new operand into the stack
         }
     }
-    if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack])
+    if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack] && [operandStack peek]==nil && [numbersStack peek] !=nil)//Solve till only one element left in the number stack
     {
         return @"Invalid String";
     }
@@ -85,7 +77,7 @@
 }
 -(BOOL) solveTillNextBracketOrNilForNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
 {
-    while([operandStack peek]!=nil && [self getTypeForString:[operandStack peek]] != CTButtonTypeOpenBracket)
+    while([operandStack peek]!=nil && [[operandStack peek] getButtonType] != CTButtonTypeOpenBracket)
     {
         if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
         {
@@ -103,7 +95,7 @@
     {
         return NO;
     }
-    CTButtonType topType = [self getTypeForString:topOperand];
+    CTButtonType topType = [topOperand getButtonType];
     if(topType == CTButtonTypeOpenBracket)
     {
         return NO;
@@ -133,60 +125,13 @@
         return 3;
     }
 }
--(NSString *) stringByRemovingFirstCharacter:(NSString *) str
-{
-    if([str length]>0)
-    {
-        return [str substringFromIndex:1];
-    }
-    return @"";
 
-}
-//check whether  character is operand, opening bracket, closed bracket  or number
--(CTButtonType)getTypeForString:(NSString *) str
-{
-    if([self checkRegex:@"^(?:\\+|-|\\/|x)$" forString:str])
-    {
-        return CTButtonTypeOperand;
-    }
-    else if([str isEqualToString:@"("])
-    {
-        return CTButtonTypeOpenBracket;
-    }
-    else if([str isEqualToString:@")"])
-    {
-        return CTButtonTypeCloseBracket;
-    }
-    else if([self isNumber:str])
-    {
-        return CTButtonTypeNumber;
-    }
-    return CTButtonTypeInvalid;
-}
-//get last character in a string or return empty string
--(NSString *) getLastCharacter:(NSString *) str
-{
-    if([str length]>0)
-    {
-        return [str substringFromIndex:[str length]-1];
-    }
-    return @"";
-}
-//get first character
--(NSString *) getFirstCharacter:(NSString *) str
-{
-    if([str length]>0)
-    {
-        return [str substringToIndex:1];
-    }
-    return @"";
-}
 
 //Perform operation
 -(NSString *) calculateForParamA:(NSString *) aStr paramB:(NSString *) bStr usingOperand:(NSString *) operand
 {
-    CGFloat a = [self floatValue:aStr];
-    CGFloat b = [self floatValue:bStr];
+    CGFloat a = [aStr floatValue];
+    CGFloat b = [bStr floatValue];
     CGFloat answer = 0;
     if([operand isEqualToString:@"/"])
     {
@@ -206,27 +151,6 @@
     }
     return [NSString stringWithFormat:@"%f", answer];
 }
-//String to float
--(CGFloat) floatValue:(NSString *) str
-{
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber * myNumber = [f numberFromString:str];
-    return [myNumber floatValue];
-}
-
--(BOOL) isNumber:(NSString *) str
-{
-    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
-    [f setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSNumber * myNumber = [f numberFromString:str];
-    return (myNumber!=nil);
-}
--(BOOL) checkRegex:(NSString *) regex forString:(NSString *) str
-{
-    NSPredicate *regText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
-    return [regText evaluateWithObject:str];
-}
 
 #pragma mark IBActions
 /*
@@ -235,10 +159,10 @@
 -(IBAction) tappedOnButton:(UIButton *)sender
 {
     NSString *text = self.questionLbl.text;
-    NSString *lastCharacter = [self getLastCharacter:text];
+    NSString *lastCharacter = [text lastCharacter];
     NSString *newCharacter = sender.titleLabel.text;
-    CTButtonType newCharacterType = [self getTypeForString:newCharacter];
-    CTButtonType lastCharacterType = [self getTypeForString:lastCharacter];
+    CTButtonType newCharacterType = [newCharacter getButtonType];
+    CTButtonType lastCharacterType = [lastCharacter getButtonType];
     if(newCharacterType!=CTButtonTypeNumber || lastCharacterType!=CTButtonTypeNumber)
     {
         text = [text stringByAppendingString:sender.titleLabel.text];
@@ -260,7 +184,7 @@
 }
 @end
 
-@implementation NSMutableArray (Stack)
+@implementation NSMutableArray (Calculator)
 -(void) push:(NSString *) obj
 {
     [self addObject:obj];
@@ -286,4 +210,77 @@
     return nil;
 }
 
+@end
+
+@implementation NSString (Calculator)
+
+//String to float
+-(CGFloat) floatValue
+{
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber * myNumber = [f numberFromString:self];
+    return [myNumber floatValue];
+}
+
+-(BOOL) isNumber
+{
+    NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
+    [f setNumberStyle:NSNumberFormatterDecimalStyle];
+    NSNumber * myNumber = [f numberFromString:self];
+    return (myNumber!=nil);
+}
+-(BOOL) checkRegex:(NSString *) regex
+{
+    NSPredicate *regText = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    return [regText evaluateWithObject:self];
+}
+
+//check whether  character is operand, opening bracket, closed bracket  or number
+-(CTButtonType)getButtonType
+{
+    if([self checkRegex:@"^(?:\\+|-|\\/|x)$"])
+    {
+        return CTButtonTypeOperand;
+    }
+    else if([self isEqualToString:@"("])
+    {
+        return CTButtonTypeOpenBracket;
+    }
+    else if([self isEqualToString:@")"])
+    {
+        return CTButtonTypeCloseBracket;
+    }
+    else if([self isNumber])
+    {
+        return CTButtonTypeNumber;
+    }
+    return CTButtonTypeInvalid;
+}
+//get last character in a string or return empty string
+-(NSString *) lastCharacter
+{
+    if([self length]>0)
+    {
+        return [self substringFromIndex:[self length]-1];
+    }
+    return @"";
+}
+//get first character
+-(NSString *) stringByRemovingFirstCharacter
+{
+    if([self length]>0)
+    {
+        return  [self substringFromIndex:1];
+    }
+    return @"";
+}
+-(NSString *) firstCharacter
+{
+    if([self length]>0)
+    {
+        return [self substringToIndex:1];
+    }
+    return @"";
+}
 @end
