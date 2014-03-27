@@ -121,82 +121,9 @@
 
 -(NSString *) solveQuestion:(NSString *) question
 {
-    NSMutableArray *numbersStack = [[NSMutableArray alloc] init];
-    NSMutableArray *operandStack = [[NSMutableArray alloc] init];
+    return @"Invalid Question";
+}
 
-    while([question length]>0)
-    {
-        NSString *nextChar = [question firstCharacter];// Remove first character from string
-        question = [question stringByRemovingFirstCharacter];
-        CTStringType stringType = [nextChar getStringType];
-        if(stringType==CTStringTypeNumber)//If number add it to numbers stack
-        {
-            [numbersStack push:nextChar];
-        }
-        else if(stringType==CTStringTypeOpenBracket)//If open bracket add it to the operand stack
-        {
-            [operandStack push:nextChar];
-        }
-        else if(stringType==CTStringTypeCloseBracket)//If close bracket solve equation till last opened bracket
-        {
-            if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack])
-            {
-                return @"Invalid String";
-            }
-            
-            if([operandStack peek]==nil)
-            {
-                return @"Invalid String";
-            }
-            [operandStack pop];
-        }
-        else//If operand
-        {
-            NSString *topOperand = [operandStack peek];
-            if(topOperand != nil && [self operandA:topOperand precedesOperandB:nextChar])//if the previous operand has a higher precedence solve a single calculation
-            {
-                if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
-                {
-                    return @"Invalid String";
-                }
-            }
-            [operandStack push:nextChar];//add the new operand into the stack
-        }
-    }
-    if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack] && [operandStack peek]==nil && [numbersStack peek] !=nil)//Solve till only one element left in the number stack
-    {
-        return @"Invalid String";
-    }
-    return [numbersStack pop];
-}
--(BOOL) solveTillNextBracketOrNilForNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
-{
-    while([operandStack peek]!=nil && [[operandStack peek] getStringType] != CTStringTypeOpenBracket)
-    {
-        if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
-        {
-            return NO;
-        }
-    }
-    return YES;
-}
--(BOOL) solveSingleOperationNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
-{
-    NSString *topOperand = [operandStack pop];
-    NSString *b = [numbersStack pop];
-    NSString *a = [numbersStack pop];
-    if(a==nil||b==nil)
-    {
-        return NO;
-    }
-    CTStringType topType = [topOperand getStringType];
-    if(topType == CTStringTypeOpenBracket)
-    {
-        return NO;
-    }
-    [numbersStack push:[self calculateForParamA:a paramB:b usingOperand:topOperand]];
-    return YES;
-}
 #pragma mark Utility Function
 //Returns whether operand A has a higher precedence than B
 //For example if a is "x" and b is "+" it return YES
