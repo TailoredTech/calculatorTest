@@ -19,9 +19,25 @@ CTElementType;
 
 
 @interface NSString (PublicParser)
+/*
+    get the first element in the equation can be either a operand, number or bracket
+*/
 -(NSString *) firstElement;
+/*
+ get returns a string with the first element removed.
+*/
 -(NSString *) stringByRemovingFirstElement;
+/*
+ gets the type of element this string is
+*/
 -(CTElementType) getElementType;
+/*
+ Assuming self is an operand check if it precedes the passed operand
+*/
 -(BOOL) precedes:(NSString *)operand;
+/*
+ Assuming self is an operand calculates [aStr][operand][bStr]
+ */
+
 -(NSString *) calculateForParamA:(NSString *) aStr paramB:(NSString *) bStr;
 @end
