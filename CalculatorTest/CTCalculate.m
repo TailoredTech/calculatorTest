@@ -9,12 +9,18 @@
 #import "CTCalculate.h"
 #import "NSString+EquationParser.h"
 #import "NSMutableArray+Stacks.h"
+@interface CTCalculate()
+{
+    NSMutableArray *_numbersStack;
+    NSMutableArray *_operandStack;
+}
+@end
 
 @implementation CTCalculate
 -(NSString *) solveQuestion:(NSString *) question
 {
-    NSMutableArray *numbersStack = [[NSMutableArray alloc] init];
-    NSMutableArray *operandStack = [[NSMutableArray alloc] init];
+    _numbersStack = [[NSMutableArray alloc] init];
+    _operandStack = [[NSMutableArray alloc] init];
     
     while([question length]>0)
     {
@@ -23,60 +29,60 @@
         CTElementType elementType = [nextElement getElementType];
         if(elementType==CTElementTypeNumber)//If number add it to numbers stack
         {
-            [numbersStack push:nextElement];
+            [_numbersStack push:nextElement];
         }
         else if(elementType==CTElementTypeOpenBracket)//If open bracket add it to the operand stack
         {
-            [operandStack push:nextElement];
+            [_operandStack push:nextElement];
         }
         else if(elementType==CTElementTypeCloseBracket)//If close bracket solve equation till last opened bracket
         {
-            if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack])
+            if(![self solveTillNextBracketOrNil])
             {
                 return @"Invalid String";
             }
             
-            if([operandStack peek]==nil)
+            if([_operandStack peek]==nil)
             {
                 return @"Invalid String";
             }
-            [operandStack pop];
+            [_operandStack pop];
         }
         else//If operand
         {
-            NSString *topOperand = [operandStack peek];
+            NSString *topOperand = [_operandStack peek];
             if(topOperand != nil && [topOperand precedes:nextElement])//if the previous operand has a higher precedence solve a single calculation
             {
-                if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
+                if(![self solveSingleOperation])
                 {
                     return @"Invalid String";
                 }
             }
-            [operandStack push:nextElement];//add the new operand into the stack
+            [_operandStack push:nextElement];//add the new operand into the stack
         }
     }
-    if(![self solveTillNextBracketOrNilForNumberStack:numbersStack operandStack:operandStack] && [operandStack peek]==nil && [numbersStack peek] !=nil)//Solve till only one element left in the number stack
+    if(![self solveTillNextBracketOrNil] && [_operandStack peek]==nil && [_numbersStack peek] !=nil)//Solve till only one element left in the number stack
     {
         return @"Invalid String";
     }
-    return [numbersStack pop];
+    return [_numbersStack pop];
 }
--(BOOL) solveTillNextBracketOrNilForNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
+-(BOOL) solveTillNextBracketOrNil
 {
-    while([operandStack peek]!=nil && [[operandStack peek] getElementType] != CTElementTypeOpenBracket)
+    while([_operandStack peek]!=nil && [[_operandStack peek] getElementType] != CTElementTypeOpenBracket)
     {
-        if(![self solveSingleOperationNumberStack:numbersStack operandStack:operandStack])
+        if(![self solveSingleOperation])
         {
             return NO;
         }
     }
     return YES;
 }
--(BOOL) solveSingleOperationNumberStack:(NSMutableArray *) numbersStack operandStack:(NSMutableArray *) operandStack
+-(BOOL) solveSingleOperation
 {
-    NSString *topOperand = [operandStack pop];
-    NSString *b = [numbersStack pop];
-    NSString *a = [numbersStack pop];
+    NSString *topOperand = [_operandStack pop];
+    NSString *b = [_numbersStack pop];
+    NSString *a = [_numbersStack pop];
     if(a==nil||b==nil)
     {
         return NO;
@@ -86,7 +92,7 @@
     {
         return NO;
     }
-    [numbersStack push:[topOperand calculateForParamA:a paramB:b]];
+    [_numbersStack push:[topOperand calculateForParamA:a paramB:b]];
     return YES;
 }
 
