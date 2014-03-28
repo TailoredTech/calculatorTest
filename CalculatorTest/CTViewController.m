@@ -129,7 +129,7 @@
 //For example if a is "x" and b is "+" it return YES
 -(BOOL) operandA:(NSString *) a precedesOperandB:(NSString *)b
 {
-    return ([self scoreForOperand:a]>[self scoreForOperand:b]);
+    return ([self scoreForOperand:a]>=[self scoreForOperand:b]);
 }
 
 //Perform operation
@@ -179,15 +179,8 @@
 -(IBAction) tappedOnButton:(UIButton *)sender
 {
     NSString *text = self.questionLbl.text;
-    NSString *lastCharacter = [text lastCharacter];
-    NSString *newCharacter = sender.titleLabel.text;
-    CTStringType newCharacterType = [newCharacter getStringType];
-    CTStringType lastCharacterType = [lastCharacter getStringType];
-    if(newCharacterType!=CTStringTypeNumber || lastCharacterType!=CTStringTypeNumber)
-    {
-        text = [text stringByAppendingString:sender.titleLabel.text];
-        [self.questionLbl setText:text];
-    }
+    text = [text stringByAppendingString:sender.titleLabel.text];
+    [self.questionLbl setText:text];
 }
 
 -(IBAction) tappedOnCalculate:(id)sender

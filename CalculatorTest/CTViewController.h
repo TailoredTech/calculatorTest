@@ -35,7 +35,6 @@ CTStringType;
 
 @interface NSString (Calculator)
 -(NSString *) firstCharacter;
--(NSString *) lastCharacter;
 -(NSString *) stringByRemovingFirstCharacter;
 -(CTStringType) getStringType;
 -(CGFloat) floatValue;

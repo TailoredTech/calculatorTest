@@ -21,6 +21,9 @@
 		07119A2418E48D5C00DC2D06 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07119A0618E48D5C00DC2D06 /* UIKit.framework */; };
 		07119A2C18E48D5C00DC2D06 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07119A2A18E48D5C00DC2D06 /* InfoPlist.strings */; };
 		07119A2E18E48D5C00DC2D06 /* CalculatorTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07119A2D18E48D5C00DC2D06 /* CalculatorTestTests.m */; };
+		0751F63418E561A20094413C /* NSMutableArray+Stacks.m in Sources */ = {isa = PBXBuildFile; fileRef = 0751F63318E561A20094413C /* NSMutableArray+Stacks.m */; };
+		0751F63718E561B30094413C /* NSString+EquationParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0751F63618E561B30094413C /* NSString+EquationParser.m */; };
+		0751F63A18E561C40094413C /* CTCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0751F63918E561C40094413C /* CTCalculate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,12 @@
 		07119A2918E48D5C00DC2D06 /* CalculatorTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CalculatorTestTests-Info.plist"; sourceTree = "<group>"; };
 		07119A2B18E48D5C00DC2D06 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		07119A2D18E48D5C00DC2D06 /* CalculatorTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalculatorTestTests.m; sourceTree = "<group>"; };
+		0751F63218E561A20094413C /* NSMutableArray+Stacks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Stacks.h"; sourceTree = "<group>"; };
+		0751F63318E561A20094413C /* NSMutableArray+Stacks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Stacks.m"; sourceTree = "<group>"; };
+		0751F63518E561B30094413C /* NSString+EquationParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+EquationParser.h"; sourceTree = "<group>"; };
+		0751F63618E561B30094413C /* NSString+EquationParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+EquationParser.m"; sourceTree = "<group>"; };
+		0751F63818E561C40094413C /* CTCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTCalculate.h; sourceTree = "<group>"; };
+		0751F63918E561C40094413C /* CTCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTCalculate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +126,12 @@
 				07119A1418E48D5C00DC2D06 /* Main.storyboard */,
 				07119A1718E48D5C00DC2D06 /* CTViewController.h */,
 				07119A1818E48D5C00DC2D06 /* CTViewController.m */,
+				0751F63218E561A20094413C /* NSMutableArray+Stacks.h */,
+				0751F63318E561A20094413C /* NSMutableArray+Stacks.m */,
+				0751F63518E561B30094413C /* NSString+EquationParser.h */,
+				0751F63618E561B30094413C /* NSString+EquationParser.m */,
+				0751F63818E561C40094413C /* CTCalculate.h */,
+				0751F63918E561C40094413C /* CTCalculate.m */,
 				07119A1A18E48D5C00DC2D06 /* Images.xcassets */,
 				07119A0918E48D5C00DC2D06 /* Supporting Files */,
 			);
@@ -250,7 +265,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0751F63718E561B30094413C /* NSString+EquationParser.m in Sources */,
+				0751F63418E561A20094413C /* NSMutableArray+Stacks.m in Sources */,
 				07119A0F18E48D5C00DC2D06 /* main.m in Sources */,
+				0751F63A18E561C40094413C /* CTCalculate.m in Sources */,
 				07119A1318E48D5C00DC2D06 /* CTAppDelegate.m in Sources */,
 				07119A1918E48D5C00DC2D06 /* CTViewController.m in Sources */,
 			);
@@ -457,6 +475,7 @@
 				07119A3318E48D5C00DC2D06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07119A3418E48D5C00DC2D06 /* Build configuration list for PBXNativeTarget "CalculatorTestTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +484,7 @@
 				07119A3618E48D5C00DC2D06 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
