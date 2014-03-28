@@ -9,26 +9,26 @@
 #import "NSMutableArray+Stacks.h"
 
 @implementation NSMutableArray (Calculator)
--(void) push:(NSString *) obj
+-(void) push:(id) obj
 {
     [self addObject:obj];
 }
--(NSString *) pop
+-(id) pop
 {
     if([self count]>0)
     {
-        NSString *topObject = [self lastObject];
+        id topObject = [self lastObject];
         [self removeLastObject];
         return topObject;
     }
     return nil;
 }
 
--(NSString *) peek
+-(id) peek
 {
     if([self count]>0)
     {
-        NSString *topObject = [self lastObject];
+        id topObject = [self lastObject];
         return topObject;
     }
     return nil;

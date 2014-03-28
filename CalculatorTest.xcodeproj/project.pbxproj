@@ -121,15 +121,7 @@
 		07119A0818E48D5C00DC2D06 /* CalculatorTest */ = {
 			isa = PBXGroup;
 			children = (
-				07119A1118E48D5C00DC2D06 /* CTAppDelegate.h */,
-				07119A1218E48D5C00DC2D06 /* CTAppDelegate.m */,
-				07119A1418E48D5C00DC2D06 /* Main.storyboard */,
-				07119A1718E48D5C00DC2D06 /* CTViewController.h */,
-				07119A1818E48D5C00DC2D06 /* CTViewController.m */,
-				0751F63218E561A20094413C /* NSMutableArray+Stacks.h */,
-				0751F63318E561A20094413C /* NSMutableArray+Stacks.m */,
-				0751F63518E561B30094413C /* NSString+EquationParser.h */,
-				0751F63618E561B30094413C /* NSString+EquationParser.m */,
+				0751F63B18E5677B0094413C /* Helper Headers */,
 				0751F63818E561C40094413C /* CTCalculate.h */,
 				0751F63918E561C40094413C /* CTCalculate.m */,
 				07119A1A18E48D5C00DC2D06 /* Images.xcassets */,
@@ -141,6 +133,7 @@
 		07119A0918E48D5C00DC2D06 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0751F63C18E567920094413C /* Ignore */,
 				07119A0A18E48D5C00DC2D06 /* CalculatorTest-Info.plist */,
 				07119A0B18E48D5C00DC2D06 /* InfoPlist.strings */,
 				07119A0E18E48D5C00DC2D06 /* main.m */,
@@ -165,6 +158,29 @@
 				07119A2A18E48D5C00DC2D06 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0751F63B18E5677B0094413C /* Helper Headers */ = {
+			isa = PBXGroup;
+			children = (
+				0751F63218E561A20094413C /* NSMutableArray+Stacks.h */,
+				0751F63518E561B30094413C /* NSString+EquationParser.h */,
+			);
+			name = "Helper Headers";
+			sourceTree = "<group>";
+		};
+		0751F63C18E567920094413C /* Ignore */ = {
+			isa = PBXGroup;
+			children = (
+				0751F63318E561A20094413C /* NSMutableArray+Stacks.m */,
+				0751F63618E561B30094413C /* NSString+EquationParser.m */,
+				07119A1118E48D5C00DC2D06 /* CTAppDelegate.h */,
+				07119A1218E48D5C00DC2D06 /* CTAppDelegate.m */,
+				07119A1418E48D5C00DC2D06 /* Main.storyboard */,
+				07119A1718E48D5C00DC2D06 /* CTViewController.h */,
+				07119A1818E48D5C00DC2D06 /* CTViewController.m */,
+			);
+			name = Ignore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

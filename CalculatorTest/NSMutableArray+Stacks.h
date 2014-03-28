@@ -9,7 +9,16 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableArray (Calculator)
--(void) push:(NSString *) obj;
--(NSString *) pop;
--(NSString *) peek;
+/*
+ Push object onto a stack
+*/
+-(void) push:(id) obj;
+/*
+ Pop object from stack & return
+*/
+-(id) pop;
+/*
+ Get object at the top of the stack
+*/
+-(id) peek;
 @end
