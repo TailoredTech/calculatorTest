@@ -7,15 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-typedef enum
-{
-    CTStringTypeInvalid = 0,
-    CTStringTypeOperand = 1 << 0,
-    CTStringTypeOpenBracket = 1 << 1,
-    CTStringTypeCloseBracket = 1 << 2,
-    CTStringTypeNumber = 1 << 3
-}
-CTStringType;
 
 @interface CTViewController : UIViewController
 
@@ -27,17 +18,3 @@ CTStringType;
 -(IBAction) clear:(id)sender;
 @end
 
-@interface NSMutableArray (Calculator)
--(void) push:(NSString *) obj;
--(NSString *) pop;
--(NSString *) peek;
-@end
-
-@interface NSString (Calculator)
--(NSString *) firstCharacter;
--(NSString *) stringByRemovingFirstCharacter;
--(CTStringType) getStringType;
--(CGFloat) floatValue;
--(BOOL) isNumber;
--(BOOL) checkRegex:(NSString *) regex;
-@end

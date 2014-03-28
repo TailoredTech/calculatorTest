@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface CTCalculate : NSObject
-
+-(NSString *) solveQuestion:(NSString *) question;
 @end

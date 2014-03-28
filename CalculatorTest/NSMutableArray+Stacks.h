@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSMutableArray_Stacks : NSObject
-
+@interface NSMutableArray (Calculator)
+-(void) push:(NSString *) obj;
+-(NSString *) pop;
+-(NSString *) peek;
 @end

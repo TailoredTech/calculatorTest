@@ -7,7 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef enum
+{
+    CTElementTypeInvalid = 0,
+    CTElementTypeOperand = 1 << 0,
+    CTElementTypeOpenBracket = 1 << 1,
+    CTElementTypeCloseBracket = 1 << 2,
+    CTElementTypeNumber = 1 << 3
+}
+CTElementType;
 
-@interface NSString_EquationParser : NSObject
 
+@interface NSString (PublicParser)
+-(NSString *) firstElement;
+-(NSString *) stringByRemovingFirstElement;
+-(CTElementType) getElementType;
+-(BOOL) precedes:(NSString *)operand;
+-(NSString *) calculateForParamA:(NSString *) aStr paramB:(NSString *) bStr;
 @end
