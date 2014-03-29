@@ -33,7 +33,7 @@ A category on NSString's that has the following functions to help pass an equati
 	returns a string with the first element of the equations string removed.
 	eg. "123+45/3" returns "+45/3". "((3+5)/9)" returns "(3+5)/9)"
 */
--(NSString *) stringByRemovingFirstElement; //returns a string with the first element of the equations string removed.(eg. "123+45/3" returns "+45/3". "((3+5)/9)" returns "(3+5)/9)")
+-(NSString *) stringByRemovingFirstElement;
 
 /* 
 	returns the elementType for this string can be one of the following:
