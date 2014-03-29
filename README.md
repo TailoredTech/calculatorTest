@@ -3,11 +3,11 @@ Basic logical reasoning test for an iOS developer interview candidate.
 
 Requires the candidate to complete a calculator app to solve BODMAS equations. 
 
-#####The candidate only needs to edit the CTCalculate class & fill in:
+#####The candidate only needs to edit the CTCalculate.m file & fill in:
 ```objective-c
--(NSString *) solveQuestion:(NSString *) question;
+-(NSString *) solveQuestion:(NSString *) question
 ```
-**The answer is included so remove the function definations in CTCalclate.h and replace it with the following**
+**The answer is included so remove the function definations in CTCalculate.m and replace it with the following**
 
 ```objective-c
 -(NSString *) solveQuestion:(NSString *) question
