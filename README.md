@@ -1,5 +1,4 @@
-calulatortest
-=============
+#calulatortest
 Basic logical reasoning test for an iOS developer interview candidate. 
 
 Requires the candidate to complete a calculator app to solve BODMAS equations. 
@@ -8,11 +7,9 @@ The candidate only needs to edit the CTCalculate class & fill in:
 
 -(NSString *) solveQuestion:(NSString *) question
 
-He/She has the following helper functions
-=============
+###Candidate has the following helper functions
 
-NSMutableArray+Stacks.h
-=============
+#####NSMutableArray+Stacks.h
 A category on NSMutableArray's that adds the following stack functions:
 
 ```objective-c
@@ -23,8 +20,7 @@ A category on NSMutableArray's that adds the following stack functions:
 -(id) peek;
 ```
 
-NSString+EquationParser.h
-=============
+#####NSString+EquationParser.h
 A category on NSStrins's that has the following functions to help pass an equation string :
 ```objective-c
 
@@ -49,8 +45,8 @@ A category on NSStrins's that has the following functions to help pass an equati
 
 -(NSString *) calculateForParamA:(NSString *) aStr paramB:(NSString *) bStr;//Calculated [aStr] [self] [bStr]
 ```
-Notes
-=============
+###Notes
+
 The UI only supports the 4" iPhones/iPods
 
 Things to add in the future:
