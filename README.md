@@ -50,8 +50,11 @@ A category on NSStrins's that has the following functions to help pass an equati
 **The UI only supports the 4" iPhones/iPods**
 
 Things to add in the future:
+
 1. Validate equation before passing it to solveQuestion.
+
 2. Rebuild storyboard using autolayout.
+
 3. Add default test cases.
 
 This is still a work in progress. Please feel free to contribute & fix bugs.
