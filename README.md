@@ -47,7 +47,7 @@ A category on NSStrins's that has the following functions to help pass an equati
 ```
 ###Notes
 
-The UI only supports the 4" iPhones/iPods
+**The UI only supports the 4" iPhones/iPods**
 
 Things to add in the future:
 1. Validate equation before passing it to solveQuestion.
